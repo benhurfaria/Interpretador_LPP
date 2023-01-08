@@ -1,10 +1,8 @@
 -- Arquivo de inclusão base: define Lib e guarda contra repetidas inclusões de Lib
 
-if Lib then return end ---Guarda de inclusão
+if Lib then return end -- Guarda de inclusão
 
 Lib = {} ---@type table Biblioteca de funções
-Lib.vars = {} ---@type table Manipulação de variáveis
-Lib.class = {} ---@type table Classe
 
 ---Encontra o main do arquivo.
 ---Se nenhum begin for encontrado, sai do programa.

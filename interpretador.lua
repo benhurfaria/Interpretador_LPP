@@ -1,4 +1,5 @@
-dofile("lib.lua") -- Nota: todos os caminhos são relativos à posição do terminal
+-- Nota: todos os caminhos são relativos à posição do terminal, inclusive na execução de outros arquivos
+dofile("lib.lua") -- Executa o arquivo de biblioteca
 
 io.input(arg[1]) -- Abre o arquivo de entrada
 File = {} ---@type table Linhas do arquivo
