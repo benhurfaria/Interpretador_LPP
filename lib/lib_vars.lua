@@ -20,20 +20,29 @@ end
 
 ---Processa a declaração de variáveis
 ---@param line string Linha iniciando em "vars"
----@return table vars Variáveis encontradas
----@return number i Quantidade de variáveis encontradas
-function Lib.vars.declare(line)
+---@param output table? Se presente, adiciona as variáveis lidas a essa tabela
+---@return table vars Variáveis encontradas. Se output estiver presente, retorna output.
+---@return number amount Quantidade de variáveis encontradas
+function Lib.vars.declare(line, output)
 	local vars = {}
-	local i = 1
 
 	-- Enquanto existe mais de uma variável a processar
 	while string.match(line, ",") do
-		vars[i] = Lib.vars.construct(string.match(line, Lib.regex.var_extract))
+		vars[#vars + 1] = Lib.vars.construct(string.match(line, Lib.regex.var_extract))
 		line = "vars " .. string.match(line, Lib.regex.var_remove)
-		i = i + 1
 	end
 
-	vars[i] = Lib.vars.construct(string.match(line, Lib.regex.var_extract))
+	-- Processa a última/única variável
+	vars[#vars + 1] = Lib.vars.construct(string.match(line, Lib.regex.var_extract))
 
-	return vars, i
+	-- Guarda as variáveis lidas em output se presente
+	if output then
+		for i = 1, #vars, 1 do
+			output[#output + 1] = vars[i]
+		end
+	
+		return output, #vars
+	end
+
+	return vars, #vars
 end
